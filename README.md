@@ -12,7 +12,7 @@
 
 - SES_weight(α, l0, time_serie)
 
-![](SES.png)
+![](images/SES.png)
 
 *Holt’s linear trend method:*
 
@@ -20,17 +20,17 @@
 
 - HLT_loss(time_serie, α, β, l0, b0)
 
-![](trend.png)
+![](images/trend.png)
 
 - HLT_forecast(time_serie, α, β, l0, b0, n_pred)
 
-![](forecast.png)
+![](images/forecast.png)
 
 - Damped_HLT_loss(time_serie, α, β, l0, b0, ϕ)
 
 - Damped_HLT_forecast(time_serie, α, β, l0, b0, ϕ, n_pred)
 
-![](Damped.png)
+![](images/Damped.png)
 
 *Holt’s winter seasonal method:*
 
@@ -38,10 +38,7 @@
 
 - HW_Seasonal(time_serie, α, β, γ, l0, b0, s0, m)
 
-![](season.png)
+![](images/season.png)
 
 - HW_Seasonal_mult(time_serie, α, β, γ, l0, b0, s0, m)
----
-## Example
 
-[Notebook example](https://github.com/lambdaclass/julia_time_series_library/blob/main/exponential_smooth.jl.html)
