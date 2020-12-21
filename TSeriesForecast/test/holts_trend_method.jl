@@ -25,7 +25,7 @@ y_expected = [74.60130, 76.70304, 78.80478, 80.90652, 83.00826]
 @testset "Holts trend method" begin
 
     @testset "Holts linear method work" begin
-        @test isapprox(TSeriesForecast.HLT_forecast(data, α, β, l0, b0, h), y_expected; atol=ϵ)
+        @test isapprox(HLT_forecast(data, α, β, l0, b0, h), y_expected; atol=ϵ)
 
     end
 end

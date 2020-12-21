@@ -1,3 +1,5 @@
+module holts_trend_method
+
 function HLT_forecast(time_serie, α, β, l0, b0, n_pred)
 	N = length(time_serie)
 	l_t = 0
@@ -31,3 +33,4 @@ function HLT_forecast(time_serie, α, β, l0, b0, n_pred)
 	return pred
 end
 
+end
