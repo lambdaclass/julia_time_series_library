@@ -1,5 +1,11 @@
 module TSeriesForecast
 
-# Write your package code here.
+submodules = [
+    "simpleexponentialsmoothing"
+]
+
+for sm ∈ submodules
+    include("./$sm.jl")
+end
 
 end
