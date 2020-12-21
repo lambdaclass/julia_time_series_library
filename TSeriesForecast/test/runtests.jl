@@ -1,6 +1,12 @@
+push!(LOAD_PATH, "../src")
+
 using TSeriesForecast
 using Test
 
-@testset "TSeriesForecast.jl" begin
-    # Write your tests here.
+@testset "Holts linear method work" begin
+    data = [17.55340, 21.86010, 23.88660, 26.92930, 26.88850, 28.83140, 30.07510, 30.95350, 30.18570, 31.57970, 32.57757, 
+            33.47740, 39.02158, 41.38643, 41.59655, 44.65732, 46.95177, 48.72884, 51.48843, 50.02697, 60.64091, 63.36031, 
+            66.35527, 68.19795, 68.12324, 69.77935, 72.59770]
+    
+    @test isapprox(TSeriesForecast.HLT_forecast(data, 0.832166, 0.000149, 15.57152, 2.101717, 5), [74.60130, 76.70304, 78.80478, 80.90652, 83.00826]; atol=0.01)
 end
