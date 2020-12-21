@@ -42,3 +42,5 @@
 
 - HW_Seasonal_mult(time_serie, α, β, γ, l0, b0, s0, m)
 
+
+(C) Lambdaclass 2020
