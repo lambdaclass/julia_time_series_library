@@ -1,5 +1,13 @@
 module TSeriesForecast
 
-include("holts_trend_method.jl")
+
+submodules = [
+    "simpleexponentialsmoothing"
+    "holts_trend_method"
+]
+
+for sm ∈ submodules
+    include("./$sm.jl")
+end
 
 end
