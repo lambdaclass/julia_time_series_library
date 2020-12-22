@@ -1,6 +1,6 @@
 module SimpleExponentialSmoothing
 
-export SES_weight, loss
+export SES_weight, loss, forecast
 
 function SES_weight(α, l0, time_series)
     N = length(time_series)
@@ -36,6 +36,28 @@ function loss(α, l0, time_series)
     end
 
     return loss
+end
+
+function forecast(α, l0, time_series, forecast_length)
+    N = length(time_series)
+    y_pred = 0
+    pred = []
+
+    for i in 1:(N)
+        if i == 1
+            y_pred = l0
+        else
+            y_pred = time_series[i - 1] * α + y_pred * (1 - α)
+        end
+    end
+
+    y_pred = time_series[N] * α + y_pred * (1 - α)
+
+    for j in 1:forecast_length
+        push!(pred, y_pred)
+    end
+
+    return pred
 end
 
 end
