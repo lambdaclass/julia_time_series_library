@@ -1,6 +1,8 @@
 module SimpleExponentialSmoothing
 
-export SES, loss, forecast
+using Optim
+
+export SES, loss, fit, forecast
 
 struct SES
     α::Float64
@@ -31,10 +33,20 @@ function loss(model::SES, time_series)
     return loss
 end
 
-function loss(parameters::Array{Float64}, y)
-    α = parameters[1]
-    l0 = parameters[2]
-    return loss(SES(α, l0), y)
+function fit(model::SES, y)
+    lower = [-Inf, -Inf]
+    upper = [Inf, Inf]
+    initial = [model.α, model.l0]
+
+    function loss_(parameters::Array{Float64})
+        α = parameters[1]
+        l0 = parameters[2]
+        return loss(SES(α, l0), y)
+    end
+
+    res = Optim.optimize(loss_, lower, upper, initial)
+    optimal = Optim.minimizer(res)
+    return SES(optimal[1], optimal[2])
 end
 
 function forecast(model, time_series, forecast_length)

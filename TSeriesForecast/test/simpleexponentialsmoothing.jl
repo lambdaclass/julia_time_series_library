@@ -2,9 +2,9 @@ module SimpleExponentialSmoothingTests
 
 using Test
 
-using TSeriesForecast.SimpleExponentialSmoothing: loss, forecast, SES
+using TSeriesForecast.SimpleExponentialSmoothing: loss, forecast, SES, fit
 
-ϵ = 1.0e-9
+ϵ = 1.0e-6
 
 ### Data
 
@@ -47,19 +47,20 @@ model = SES(α, l0)
     end
 
     @testset "loss" begin
-        @testset "loss accepts a model as parameter" begin
-            y = observations
-            expected_loss = sum((y - y_pred) .^ 2)
+        y = observations
+        expected_loss = sum((y - y_pred) .^ 2)
 
-            @test isapprox(loss(model, y), expected_loss)
-        end
+        @test isapprox(loss(model, y), expected_loss)
+    end
 
-        @testset "loss accepts an array as parameter" begin
-            y = observations
-            expected_loss = sum((y - y_pred) .^ 2)
+    @testset "fit" begin
+        y = observations
 
-            @test isapprox(loss([α, l0], y), expected_loss)
-        end
+        starting_point = SES()
+        optimal_model = fit(starting_point, y)
+
+        @test isapprox(optimal_model.α, α, atol=ϵ)
+        @test isapprox(optimal_model.l0, l0, atol=ϵ)
     end
 
     @testset "forecast" begin
