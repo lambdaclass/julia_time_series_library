@@ -1,6 +1,14 @@
 module SimpleExponentialSmoothing
 
-export loss, forecast
+export SES, loss, forecast
+
+struct SES
+    α::Float64
+    l0::Float64
+
+    SES() = new(0, 0)
+    SES(α::Float64, l0::Float64) = new(α, l0)
+end
 
 function loss(α, l0, time_series)
     loss = 0
