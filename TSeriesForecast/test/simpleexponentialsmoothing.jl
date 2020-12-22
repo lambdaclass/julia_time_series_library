@@ -35,6 +35,13 @@ y_forecast = [542.6805873746]
             @test model.l0 ≈ l0
         end
 
+        @testset "SES parametric constructor takes any Number type" begin
+            α = 42
+            l0 = Float32(3.1415)
+            model = SES(α, l0)
+            @test model.α ≈ α
+            @test model.l0 ≈ l0
+        end
     end
     @testset "SES loss function" begin
         y = observations

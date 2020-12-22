@@ -7,7 +7,7 @@ struct SES
     l0::Float64
 
     SES() = new(0, 0)
-    SES(α::Float64, l0::Float64) = new(α, l0)
+    SES(α::Number, l0::Number) = new(Float64(α), Float64(l0))
 end
 
 function loss(α, l0, time_series)
