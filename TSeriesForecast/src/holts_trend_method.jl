@@ -1,5 +1,56 @@
 module holts_trend_method
 
+function HLT_loss(time_serie, α, β, l0, b0)
+	N = length(time_serie)
+	l_t = 0
+	b_t = 0
+	l_t_ = 0 #Variable to save l(t-1)
+	loss = 0
+	
+	for i in 1:(N)
+		if i == 1
+			l_t = l0
+			b_t = b0
+		else
+			l_t = time_serie[i - 1] * α + (l_t + b_t) * (1 - α) #b_t "is" b(t-1)
+			b_t = β * (l_t - l_t_) + (1 - β) * b_t
+		end
+		l_t_ = l_t
+		
+		y_pred = l_t + b_t
+		
+		loss += (time_serie[i] - y_pred)^2	
+	end
+	
+	return loss/N
+end
+
+function HLT(time_serie, α, β, l0, b0)
+	N = length(time_serie)
+	l_t = 0
+	b_t = 0
+	l_t_ = 0 
+	pred = []
+	
+	for i in 1:(N)
+		if i == 1
+			l_t = l0
+			b_t = b0
+		else
+			l_t = time_serie[i - 1] * α + (l_t + b_t) * (1 - α) #b_t "is" b(t-1)
+			b_t = β * (l_t - l_t_) + (1 - β) * b_t
+		end
+		l_t_ = l_t
+		
+		y_pred = l_t + b_t
+		
+		push!(pred, y_pred)
+	end
+	
+	return pred
+
+end
+
 function HLT_forecast(time_serie, α, β, l0, b0, n_pred)
 	N = length(time_serie)
 	l_t = 0
