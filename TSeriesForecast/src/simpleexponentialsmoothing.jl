@@ -31,6 +31,12 @@ function loss(model::SES, time_series)
     return loss
 end
 
+function loss(parameters::Array{Float64}, y)
+    α = parameters[1]
+    l0 = parameters[2]
+    return loss(SES(α, l0), y)
+end
+
 function forecast(model, time_series, forecast_length)
     α = model.α
     l0 = model.l0

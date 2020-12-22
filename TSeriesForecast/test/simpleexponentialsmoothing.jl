@@ -46,11 +46,20 @@ model = SES(α, l0)
         end
     end
 
-    @testset "SES loss function" begin
-        y = observations
-        expected_loss = sum((y - y_pred) .^ 2)
+    @testset "loss" begin
+        @testset "loss accepts a model as parameter" begin
+            y = observations
+            expected_loss = sum((y - y_pred) .^ 2)
 
-        @test isapprox(loss(model, y), expected_loss)
+            @test isapprox(loss(model, y), expected_loss)
+        end
+
+        @testset "loss accepts an array as parameter" begin
+            y = observations
+            expected_loss = sum((y - y_pred) .^ 2)
+
+            @test isapprox(loss([α, l0], y), expected_loss)
+        end
     end
 
     @testset "forecast" begin
