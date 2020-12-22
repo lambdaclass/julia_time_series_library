@@ -2,7 +2,7 @@ module SimpleExponentialSmoothingTests
 
 using Test
 
-using TSeriesForecast.SimpleExponentialSmoothing: SES_weight, loss, forecast
+using TSeriesForecast.SimpleExponentialSmoothing: loss, forecast
 
 ϵ = 1.0e-9
 
@@ -19,11 +19,6 @@ y_forecast = [542.6805873746]
 ### Tests
 
 @testset "Simple Exponential Smoothing" begin
-
-    @testset "SES_weight" begin
-        @test isapprox(SES_weight(α, l0, observations), y_pred, atol=ϵ)
-    end
-
     @testset "SES loss function" begin
         y = observations
         expected_loss = sum((y - y_pred) .^ 2)
