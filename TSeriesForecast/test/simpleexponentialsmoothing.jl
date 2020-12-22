@@ -16,6 +16,8 @@ y_pred = [446.586793455216, 445.567199843463, 451.927955904711, 453.997408654674
 
 y_forecast = [542.6805873746]
 
+model = SES(α, l0)
+
 ### Tests
 
 @testset "Simple Exponential Smoothing" begin
@@ -43,23 +45,25 @@ y_forecast = [542.6805873746]
             @test model.l0 ≈ l0
         end
     end
+
     @testset "SES loss function" begin
         y = observations
         expected_loss = sum((y - y_pred) .^ 2)
-        @test isapprox(loss(α, l0, y), expected_loss)
+
+        @test isapprox(loss(model, y), expected_loss)
     end
 
     @testset "forecast" begin
         @testset "The forecast is correct" begin
-            @test forecast(α, l0, observations, 1) ≈ y_forecast
+            @test forecast(model, observations, 1) ≈ y_forecast
         end
 
         @testset "forecast returns an array of length `h`" begin
-            @test length(forecast(α, l0, observations, 1)) == 1
+            @test length(forecast(model, observations, 1)) == 1
         end
 
         @testset "The forecast vector repeats the same value" begin
-            @test forecast(α, l0, observations, 42) ≈ repeat(y_forecast, 42)
+            @test forecast(model, observations, 42) ≈ repeat(y_forecast, 42)
         end
     end
 

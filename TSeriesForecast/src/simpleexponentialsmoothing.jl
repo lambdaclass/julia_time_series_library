@@ -10,7 +10,10 @@ struct SES
     SES(α::Number, l0::Number) = new(Float64(α), Float64(l0))
 end
 
-function loss(α, l0, time_series)
+function loss(model::SES, time_series)
+    α = model.α
+    l0 = model.l0
+
     loss = 0
     N = length(time_series)
     y_pred = 0
@@ -28,7 +31,10 @@ function loss(α, l0, time_series)
     return loss
 end
 
-function forecast(α, l0, time_series, forecast_length)
+function forecast(model, time_series, forecast_length)
+    α = model.α
+    l0 = model.l0
+
     N = length(time_series)
     y_pred = 0
     pred = []
