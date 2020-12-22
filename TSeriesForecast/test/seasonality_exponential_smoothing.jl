@@ -24,6 +24,56 @@ y_expected_forecast = [76.0983732770355, 51.6033257926593, 63.9686736144129, 68.
 
 @testset "Seasonality Exponential Smoothing" begin
 
+    @testset "HW Seasonal struct" begin
+
+        @testset "HW default constructor" begin
+            model = HW()
+            @test model.α ≈ 0
+            @test model.β ≈ 0
+            @test model.γ ≈ 0
+            @test model.l0 ≈ 0
+            @test model.b0 ≈ 0
+            @test model.m ≈ 1
+            @test model.s0 ≈ [0]
+        end
+
+        @testset "HW parametric constructor" begin
+            α = 0.8
+            β = 0.001
+            γ = 0.42
+            l0 = 42.0
+            b0 = 2.3
+            m = 4
+            s0 = [-9.31, 9.32, -1.24, 1.26]
+            model = HW(α, β, γ, l0, b0, m, s0)
+            @test model.α ≈ α
+            @test model.β ≈ β
+            @test model.γ ≈ γ
+            @test model.l0 ≈ l0
+            @test model.b0 ≈ b0
+            @test model.m ≈ m
+            @test model.s0 ≈ s0
+        end
+
+        @testset "SES parametric constructor takes any Number type" begin
+            α = Float32(0.8)
+            β = Float16(0.001)
+            γ = 0.42
+            l0 = 42
+            b0 = 2.3
+            m = 4
+            s0 = [-9.31, 9.32, -1.24, 1.26]
+            model = HW(α, β, γ, l0, b0, m, s0)
+            @test model.α ≈ α
+            @test model.β ≈ β
+            @test model.γ ≈ γ
+            @test model.l0 ≈ l0
+            @test model.b0 ≈ b0
+            @test model.m ≈ m
+            @test model.s0 ≈ s0
+        end
+    end
+
     @testset "Seasonality fitting process work" begin
         @test isapprox(HW_Seasonal(data, α, β, γ, l0, b0, s0, m), y_expected_fitted, atol=ϵ)
     end

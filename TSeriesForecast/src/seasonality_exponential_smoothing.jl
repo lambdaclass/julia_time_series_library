@@ -1,5 +1,19 @@
 module seasonality_exponential_smoothing
 
+struct HW
+    α::Float64
+    β::Float64
+    γ::Float64
+    l0::Float64
+    b0::Float64
+    m::Int64
+    s0::Vector{Float64}
+
+    HW() = new(0, 0, 0, 0, 0, 1, [0])
+    HW(α::Number, β::Number, γ::Number, l0::Number, b0::Number, m::Int64, s0::Vector{Number}(undef, m)) = new(Float64(α), Float64(β), Float64(γ), Float64(l0), Float64(b0), Float64.(s0))
+end
+
+
 function HW_Seasonal(time_serie, α, β, γ, l0, b0, s0, m)
 	N = length(time_serie)
 	l_t = 0
