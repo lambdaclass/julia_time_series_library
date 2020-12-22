@@ -1,8 +1,10 @@
 using TSeriesForecast
 using Test
 
+
 tests = [
-    "simpleexponentialsmoothing"
+    "simpleexponentialsmoothing",
+    "holts_trend_method"
 ]
 
 @testset "TSeriesForecast.jl" begin
