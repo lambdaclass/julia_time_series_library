@@ -44,9 +44,9 @@ steps:
       - cd TSeriesForecast
       - julia --project --check-bounds=yes -e 'using Pkg; Pkg.test();'
 
-## This will send a slack message to #time_series each time the `merge-to-main`
-## pipeline fails.
-- name: slack
+  ## This will send a slack message to #time_series each time the
+  ## `merge-to-main` pipeline fails.
+  - name: slack
     image: plugins/slack
     when:
       status:
