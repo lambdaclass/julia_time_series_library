@@ -2,24 +2,79 @@ module SimpleExponentialSmoothingTests
 
 using Test
 
-using TSeriesForecast.SimpleExponentialSmoothing: SES_weight
+using TSeriesForecast.SimpleExponentialSmoothing: loss, forecast, SES, fit
 
-ϵ = 0.001
+ϵ = 1.0e-6
 
 ### Data
 
-α = 0.8338901
-l0 = 446.5867935
+α = 0.83389014338874
+l0 = 446.586793455216
 years = collect(1996:2013)
-observations = [445.3641, 453.1950, 454.4096, 422.3789, 456.0371, 440.3866, 425.1944, 486.2052, 500.4291, 521.2759, 508.9476, 488.8889, 509.8706, 456.7229, 473.8166, 525.9509, 549.8338, 542.340]
-y_pred = [446.5868, 445.5672, 451.9280, 453.9974, 427.6311, 451.3186, 442.2025, 428.0196, 476.5400, 496.4609, 517.1539, 510.3108, 492.4472, 506.9764, 465.0705, 472.3638, 517.0495, 544.3880]
+observations = [445.364098092, 453.195010427, 454.409641012, 422.378905779, 456.037121728, 440.386604674, 425.194372519, 486.20517351, 500.429086073, 521.27590917, 508.947617045, 488.888857729, 509.870574978, 456.722912348, 473.816602915, 525.950870565, 549.833807597, 542.340469826]
+y_pred = [446.586793455216, 445.567199843463, 451.927955904711, 453.997408654674, 427.631050757941, 451.318593352274, 442.202515745824, 428.019592751632, 476.539975033385, 496.460869263639, 517.153886449352, 510.31075927907, 492.447246723823, 506.976388420008, 465.070510052539, 472.363790683708, 517.049528409702, 544.388015682095]
+
+y_forecast = [542.6805873746]
+
+model = SES(α, l0)
 
 ### Tests
 
 @testset "Simple Exponential Smoothing" begin
+    @testset "SES struct" begin
 
-    @testset "SES_weight" begin
-        @test isapprox(SES_weight(α, l0, observations), y_pred, atol=ϵ)
+        @testset "SES default constructor" begin
+            model = SES()
+            @test model.α ≈ 0
+            @test model.l0 ≈ 0
+        end
+
+        @testset "SES parametric constructor" begin
+            α = 3.14
+            l0 = 42.0
+            model = SES(α, l0)
+            @test model.α ≈ α
+            @test model.l0 ≈ l0
+        end
+
+        @testset "SES parametric constructor takes any Number type" begin
+            α = 42
+            l0 = Float32(3.1415)
+            model = SES(α, l0)
+            @test model.α ≈ α
+            @test model.l0 ≈ l0
+        end
+    end
+
+    @testset "loss" begin
+        y = observations
+        expected_loss = sum((y - y_pred) .^ 2)
+
+        @test isapprox(loss(model, y), expected_loss)
+    end
+
+    @testset "fit" begin
+        y = observations
+
+        starting_point = SES()
+        optimal_model = fit(starting_point, y)
+
+        @test isapprox(optimal_model.α, α, atol=0.0001)
+        @test isapprox(optimal_model.l0, l0, atol=0.1)
+    end
+
+    @testset "forecast" begin
+        @testset "The forecast is correct" begin
+            @test forecast(model, observations, 1) ≈ y_forecast
+        end
+
+        @testset "forecast returns an array of length `h`" begin
+            @test length(forecast(model, observations, 1)) == 1
+        end
+
+        @testset "The forecast vector repeats the same value" begin
+            @test forecast(model, observations, 42) ≈ repeat(y_forecast, 42)
+        end
     end
 
 end
