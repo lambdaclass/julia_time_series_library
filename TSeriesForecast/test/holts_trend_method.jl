@@ -4,7 +4,7 @@ using Test
 
 using TSeriesForecast.HoltsLinearTrend: HLT, loss, fit, forecast
 
-ϵ = 0.01
+ϵ = 0.1
 
 ### Data
 

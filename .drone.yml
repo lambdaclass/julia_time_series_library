@@ -1,0 +1,58 @@
+# ------------------------------------------------------------------------------
+# Pipeline for pull requests.
+# ------------------------------------------------------------------------------
+
+kind: pipeline
+type: kubernetes
+name: pr-testing
+
+trigger:
+    event:
+      - pull_request
+    branch:
+      - main
+
+steps:
+
+  - name: test
+    image: julia:1.5.3-buster
+    commands:
+      - cd TSeriesForecast
+      - julia --project --check-bounds=yes -e 'using Pkg; Pkg.test();'
+
+---
+
+# ------------------------------------------------------------------------------
+# Pipeline for merges to main.
+# ------------------------------------------------------------------------------
+
+kind: pipeline
+type: kubernetes
+name: main-merges
+
+trigger:
+    event:
+      - push
+    branch:
+      - main
+
+steps:
+
+  - name: test
+    image: julia:1.5.3-buster
+    commands:
+      - cd TSeriesForecast
+      - julia --project --check-bounds=yes -e 'using Pkg; Pkg.test();'
+
+  ## This will send a slack message to #time_series each time the
+  ## `merge-to-main` pipeline fails.
+  - name: slack
+    image: plugins/slack
+    when:
+      status:
+        - failure
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      channel: time_series
+      template: "Merge to main failed! :itsfine: Check what happened at {{build.link}}"

@@ -2,8 +2,9 @@ module TSeriesForecast
 
 
 submodules = [
-    "simpleexponentialsmoothing"
-    "holts_trend_method"
+    "simpleexponentialsmoothing",
+    "holts_trend_method",
+    "seasonality_exponential_smoothing"
 ]
 
 for sm ∈ submodules
