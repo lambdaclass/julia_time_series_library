@@ -4,7 +4,8 @@ using Test
 
 tests = [
     "simpleexponentialsmoothing",
-    "holts_trend_method"
+    "holts_trend_method",
+    "seasonality_exponential_smoothing"
 ]
 
 @testset "TSeriesForecast.jl" begin
