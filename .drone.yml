@@ -55,5 +55,4 @@ steps:
       webhook:
         from_secret: slack_webhook
       channel: time_series
-      template: >
-        Merge to main failed! :itsfine: Check what happened at {{build.link}}
+      template: "Merge to main failed! :itsfine: Check what happened at {{build.link}}"
