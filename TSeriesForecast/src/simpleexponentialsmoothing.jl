@@ -32,8 +32,8 @@ function loss(model::SES, time_series)
 end
 
 function fit(model::SES, y)
-    lower = [-Inf, -Inf]
-    upper = [Inf, Inf]
+    lower = [0.0, -Inf]
+    upper = [1.0, Inf]
     initial = [model.α, model.l0]
 
     function loss_(parameters::Array{Float64})
