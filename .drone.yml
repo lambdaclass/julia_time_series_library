@@ -15,7 +15,7 @@ trigger:
 steps:
 
   - name: test
-    image: julia:1.5.3-alpine3.12
+    image: julia:1.5.3-buster
     commands:
       - cd TSeriesForecast
       - julia --project --check-bounds=yes -e 'using Pkg; Pkg.test();'
@@ -39,7 +39,7 @@ trigger:
 steps:
 
   - name: test
-    image: julia:1.5.3-alpine3.12
+    image: julia:1.5.3-buster
     commands:
       - cd TSeriesForecast
       - julia --project --check-bounds=yes -e 'using Pkg; Pkg.test();'
