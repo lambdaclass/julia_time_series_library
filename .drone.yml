@@ -1,0 +1,17 @@
+# Pipeline for PRs
+kind: pipeline
+type: kubernetes
+name: pr-testing
+
+trigger:
+    event:
+      - pull_request
+    branch:
+      - main
+
+steps:
+
+  - name: test
+    image: julia:1.5.3-alpine3.12
+    commands:
+      - julia --project --check-bounds=yes -e 'using Pkg; Pkg.test();'
