@@ -1,0 +1,45 @@
+# ------------------------------------------------------------------------------
+# Pipeline for pull requests.
+# ------------------------------------------------------------------------------
+
+kind: pipeline
+type: kubernetes
+name: pr-testing
+
+trigger:
+    event:
+      - pull_request
+    branch:
+      - main
+
+steps:
+
+  - name: test
+    image: julia:1.5.3-alpine3.12
+    commands:
+      - cd TSeriesForecast
+      - julia --project --check-bounds=yes -e 'using Pkg; Pkg.test();'
+
+---
+
+# ------------------------------------------------------------------------------
+# Pipeline for merges to main.
+# ------------------------------------------------------------------------------
+
+kind: pipeline
+type: kubernetes
+name: main-merges
+
+trigger:
+    event:
+      - push
+    branch:
+      - main
+
+steps:
+
+  - name: test
+    image: julia:1.5.3-alpine3.12
+    commands:
+      - cd TSeriesForecast
+      - julia --project --check-bounds=yes -e 'using Pkg; Pkg.test();'
