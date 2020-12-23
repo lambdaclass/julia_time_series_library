@@ -2,9 +2,9 @@ module SimpleExponentialSmoothingTests
 
 using Test
 
-using TSeriesForecast.SimpleExponentialSmoothing: loss, forecast
+using TSeriesForecast.SimpleExponentialSmoothing: loss, forecast, SES, fit
 
-ϵ = 1.0e-9
+ϵ = 1.0e-6
 
 ### Data
 
@@ -16,30 +16,64 @@ y_pred = [446.586793455216, 445.567199843463, 451.927955904711, 453.997408654674
 
 y_forecast = [542.6805873746]
 
+model = SES(α, l0)
+
 ### Tests
 
 @testset "Simple Exponential Smoothing" begin
-    @testset "SES loss function" begin
-        y = observations
-        expected_loss = sum((y - y_pred) .^ 2)
-        @test isapprox(loss(α, l0, y), expected_loss)
+    @testset "SES struct" begin
+
+        @testset "SES default constructor" begin
+            model = SES()
+            @test model.α ≈ 0
+            @test model.l0 ≈ 0
+        end
+
+        @testset "SES parametric constructor" begin
+            α = 3.14
+            l0 = 42.0
+            model = SES(α, l0)
+            @test model.α ≈ α
+            @test model.l0 ≈ l0
+        end
+
+        @testset "SES parametric constructor takes any Number type" begin
+            α = 42
+            l0 = Float32(3.1415)
+            model = SES(α, l0)
+            @test model.α ≈ α
+            @test model.l0 ≈ l0
+        end
     end
 
-    @testset "Fail" begin
-        @test false
+    @testset "loss" begin
+        y = observations
+        expected_loss = sum((y - y_pred) .^ 2)
+
+        @test isapprox(loss(model, y), expected_loss)
+    end
+
+    @testset "fit" begin
+        y = observations
+
+        starting_point = SES()
+        optimal_model = fit(starting_point, y)
+
+        @test isapprox(optimal_model.α, α, atol=0.0001)
+        @test isapprox(optimal_model.l0, l0, atol=0.1)
     end
 
     @testset "forecast" begin
         @testset "The forecast is correct" begin
-            @test forecast(α, l0, observations, 1) ≈ y_forecast
+            @test forecast(model, observations, 1) ≈ y_forecast
         end
 
         @testset "forecast returns an array of length `h`" begin
-            @test length(forecast(α, l0, observations, 1)) == 1
+            @test length(forecast(model, observations, 1)) == 1
         end
 
         @testset "The forecast vector repeats the same value" begin
-            @test forecast(α, l0, observations, 42) ≈ repeat(y_forecast, 42)
+            @test forecast(model, observations, 42) ≈ repeat(y_forecast, 42)
         end
     end
 

@@ -3,6 +3,9 @@ uuid = "dcdd15c4-879e-4b89-abb2-ca54b9b80cb0"
 authors = ["Mariano Nicolini <mariano.nicolini@lambdaclass.com> and contributors"]
 version = "0.1.0"
 
+[deps]
+Optim = "429524aa-4258-5aef-a3af-852621145aeb"
+
 [compat]
 julia = "1"
 
