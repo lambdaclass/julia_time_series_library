@@ -2,7 +2,7 @@ module SimpleExponentialSmoothingTests
 
 using Test
 
-using TSeriesForecast.SimpleExponentialSmoothing: loss, forecast, SES, fit
+using TSeriesForecast: SES, loss, forecast, fit
 
 ϵ = 1.0e-6
 

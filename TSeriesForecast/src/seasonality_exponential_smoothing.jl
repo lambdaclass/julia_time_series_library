@@ -1,5 +1,3 @@
-module seasonality_exponential_smoothing
-
 using Optim
 
 struct HW
@@ -100,6 +98,4 @@ function forecast(model::HW, time_serie, n_pred)
 	end	
 	
 	return pred
-end
-
 end

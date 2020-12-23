@@ -2,7 +2,7 @@ module seasonality_exponential_smoothingTests
 
 using Test
 
-using TSeriesForecast.seasonality_exponential_smoothing: HW, loss, forecast
+using TSeriesForecast: HW, loss, forecast
 
 ϵ = 0.1
 

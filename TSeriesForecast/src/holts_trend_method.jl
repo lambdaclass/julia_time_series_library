@@ -1,5 +1,3 @@
-module HoltsLinearTrend
-
 using Optim
 
 mutable struct HLT
@@ -83,6 +81,4 @@ function forecast(model::HLT, time_series, forecast_length)
 	end
 			
 	return pred
-end
-
 end

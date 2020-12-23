@@ -2,7 +2,7 @@ module HoltsLinearTrendTests
 
 using Test
 
-using TSeriesForecast.HoltsLinearTrend: HLT, loss, fit, forecast
+using TSeriesForecast: HLT, loss, fit, forecast
 
 ϵ = 0.1
 

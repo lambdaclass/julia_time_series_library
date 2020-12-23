@@ -1,5 +1,3 @@
-module SimpleExponentialSmoothing
-
 using Optim
 
 export SES, loss, fit, forecast
@@ -72,6 +70,4 @@ function forecast(model, time_series, forecast_length)
     end
 
     return pred
-end
-
 end
