@@ -2,7 +2,7 @@ module seasonality_exponential_smoothingTests
 
 using Test
 
-using TSeriesForecast.seasonality_exponential_smoothing: HW_Seasonal_forecast, HW_Seasonal, HW, loss, fit
+using TSeriesForecast.seasonality_exponential_smoothing: HW, loss, fit, forecast
 
 ϵ = 0.1
 
@@ -90,28 +90,25 @@ model = HW(m, α, β, γ, l0, b0, s0)
 
     end
 
-    @testset "Seasonality loss function work" begin
+    @testset "loss" begin
         @test isapprox(loss(model, data)/length(data), expected_mse, atol=ϵ)
     end
 
-    @testset "Seasonality fit function work" begin
+    @testset "fit" begin
         starting_point = HW(4)
         optimal_model = fit(starting_point, data)
 
-        @test @test isapprox(optimal_model.α, α, atol=0.1)
-        @test @test isapprox(optimal_model.β, β, atol=0.1)
-        @test @test isapprox(optimal_model.γ, γ, atol=0.1)
-        @test @test isapprox(optimal_model.l0, l0, atol=2)
-        @test @test isapprox(optimal_model.b0, b0, atol=2)
-        @test @test isapprox(optimal_model.s0, s0, atol=2)
+        @test isapprox(optimal_model.α, α, atol=0.1)
+        @test isapprox(optimal_model.β, β, atol=0.1)
+        @test isapprox(optimal_model.γ, γ, atol=0.1)
+        @test isapprox(optimal_model.l0, l0, atol=4)
+        @test isapprox(optimal_model.b0, b0, atol=2)
+        @test isapprox(optimal_model.s0, s0, atol=4)
     end
 
-    @testset "Seasonality fitting process work" begin
-        @test isapprox(HW_Seasonal(data, α, β, γ, l0, b0, s0, m), y_expected_fitted, atol=ϵ)
-    end
-
-    @testset "Seasonality forecast work" begin
-        @test isapprox(HW_Seasonal_forecast(data, α, β, γ, l0, b0, s0, m, h), y_expected_forecast, atol=ϵ)
+    @testset "forecast" begin
+        @test isapprox(forecast(model, data, h), y_expected_forecast, atol=ϵ)
+        @test length(forecast(model, data, h)) == h
     end
 
 end
