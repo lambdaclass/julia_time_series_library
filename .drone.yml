@@ -15,7 +15,7 @@ trigger:
 steps:
 
   - name: test
-    image: julia:1.5.3-alpine3.12
+    image: julia:1.5.3-buster
     commands:
       - apk add --no-cache libgomp
       - cd TSeriesForecast
@@ -40,7 +40,7 @@ trigger:
 steps:
 
   - name: test
-    image: julia:1.5.3-alpine3.12
+    image: julia:1.5.3-buster
     commands:
       - apk add --no-cache libgomp
       - cd TSeriesForecast
