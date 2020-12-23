@@ -57,26 +57,6 @@ function loss(model::HW, time_series)
 	return loss
 end
 
-function fit(model::HW, time_series)
-	lower = vcat([0, 0, 0, time_series[1]*0.5, -Inf], repeat([-Inf], model.m))
-	upper = vcat([1, 1, 1, time_series[1]*1.5, Inf], repeat([Inf], model.m))
-	initial = [0.5, 0.5, 0.5, time_series[1], model.b0, model.s0...]
-
-	function loss_(parameters::Array{Float64})
-		α = parameters[1]
-		β = parameters[2]
-		γ = parameters[3]
-		l0 = parameters[4]
-		b0 = parameters[5]
-		s0 = parameters[6:end]
-		return loss(HW(model.m, α, β, γ, l0, b0, s0), time_series)
-	end
-
-	res = Optim.optimize(loss_, lower, upper, initial)
-	optimal = Optim.minimizer(res)
-	return HW(model.m, optimal[1], optimal[2], optimal[3], optimal[4], optimal[5], optimal[6:end])
-end
-
 function forecast(model::HW, time_serie, n_pred)
 	α = model.α
 	β = model.β
