@@ -59,8 +59,8 @@ model = SES(α, l0)
         starting_point = SES()
         optimal_model = fit(starting_point, y)
 
-        @test isapprox(optimal_model.α, α, atol=ϵ)
-        @test isapprox(optimal_model.l0, l0, atol=ϵ)
+        @test isapprox(optimal_model.α, α, atol=0.0001)
+        @test isapprox(optimal_model.l0, l0, atol=0.1)
     end
 
     @testset "forecast" begin
