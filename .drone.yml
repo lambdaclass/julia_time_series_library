@@ -17,7 +17,6 @@ steps:
   - name: test
     image: julia:1.5.3-buster
     commands:
-      - apk add --no-cache libgomp
       - cd TSeriesForecast
       - julia --project --check-bounds=yes -e 'using Pkg; Pkg.test();'
 
@@ -42,7 +41,6 @@ steps:
   - name: test
     image: julia:1.5.3-buster
     commands:
-      - apk add --no-cache libgomp
       - cd TSeriesForecast
       - julia --project --check-bounds=yes -e 'using Pkg; Pkg.test();'
 
