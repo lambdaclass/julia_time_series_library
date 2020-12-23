@@ -25,6 +25,10 @@ y_forecast = [542.6805873746]
         @test isapprox(loss(α, l0, y), expected_loss)
     end
 
+    @testset "2+2 = 5" begin
+        @test 2 + 2 == 5
+    end
+
     @testset "forecast" begin
         @testset "The forecast is correct" begin
             @test forecast(α, l0, observations, 1) ≈ y_forecast
