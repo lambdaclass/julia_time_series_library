@@ -60,6 +60,8 @@ julia> forecast(model, time_series, N)
 
 ## Contributing
 
+- Run tests with `make test`
+- Open a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) with `make repl`
 - [Repository at GitHub](https://github.com/lambdaclass/julia_time_series_library)
 - [Tickets at Clickup](https://app.clickup.com/3019765/v/b/li/11462219)
 - [Tests with Drone-CI](https://github-drone.lambdaclass.com/lambdaclass/julia_time_series_library/)
