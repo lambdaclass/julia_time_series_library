@@ -20,6 +20,8 @@ steps:
       - cd TSeriesForecast
       - julia --project --check-bounds=yes -e 'using Pkg; Pkg.test();'
 
+---
+
 # ------------------------------------------------------------------------------
 # Pipeline for merges to main.
 # ------------------------------------------------------------------------------
