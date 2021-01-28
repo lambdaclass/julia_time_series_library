@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta name="viewport" content="width=device-width" />
+                <title>⚡ Pluto.jl ⚡</title>
+                <meta charset="utf-8" />
+
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.12.20/frontend/editor.css" type="text/css" />
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.12.20/frontend/treeview.css" type="text/css" />
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.12.20/frontend/hide-ui.css" type="text/css" />
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.58.1/lib/codemirror.min.css" type="text/css" />
+
+                <style id="MJX-SVG-styles">
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+</style>
+            </head>
+            <body>
+                <main><preamble><button class="runallchanged" title="Save and run all changed cells"><span></span></button></preamble><pluto-notebook id="aaac50a6-61a4-11eb-3a97-9da66c445218"><pluto-cell class="code_folded " id="4b665fac-61a8-11eb-3e58-77f064b6dbbf"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="rich_output " mime="text/html"><assignee></assignee><div><div class="markdown"><h2><strong>TSeriesForecast.jl</strong>: Package demonstration</h2>
+<p>First, we import the functions we are going to use in the demostration, and the Plots.jl library for plotting.</p>
+</div></div></pluto-output><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">11.9&nbsp;μs</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="" id="aaabfda4-61a4-11eb-0b5a-9bb0c44620be"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="scroll_y rich_output " mime="text/plain"><assignee></assignee><div></div></pluto-output><pluto-input><button class="delete_cell" title="Delete cell"><span></span></button><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 20.6667px; left: 301.75px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1px; height: 1em; outline: currentcolor none medium;" autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" wrap="off"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="true"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 50px; min-height: 23px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div style="position: relative; outline: currentcolor none medium;" role="presentation"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 271.75px; top: 15.8333px; height: 15.8333px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">begin</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-keyword">using</span> <span class="cm-variable">TSeriesForecast</span><span class="cm-operator">:</span> <span class="cm-variable">SES</span>, <span class="cm-variable">HLT</span>, <span class="cm-variable">HW</span>, <span class="cm-variable">fit</span>, <span class="cm-variable">forecast</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-keyword">using</span> <span class="cm-variable">Plots</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">end</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 71px;"></div><div class="CodeMirror-gutters" style="height: 121px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pluto-input><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">874&nbsp;μs</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="code_folded " id="a216a1ae-61a8-11eb-2b11-d5f6d5cec96a"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="rich_output " mime="text/html"><assignee></assignee><div><div class="markdown"><hr>
+<h4>Holt's Linear Trend (HLT) method</h4>
+<p>We load some example time series to perform a forecast. The <strong>Holt's Linear Trend method</strong> will be applied.</p>
+</div></div></pluto-output><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">13.7&nbsp;μs</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="" id="18c2c746-61a5-11eb-246a-b3962375d7db"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="" mime="application/vnd.pluto.tree+object"><assignee>data_1</assignee><div><jltree class="collapsed">Float64<jlarray class="Array"><r><k>1</k><v><pre>17.5534</pre></v></r><r><k>2</k><v><pre>21.8601</pre></v></r><r><k>3</k><v><pre>23.8866</pre></v></r><r><k>4</k><v><pre>26.9293</pre></v></r><r><k>5</k><v><pre>26.8885</pre></v></r><r><k>6</k><v><pre>28.8314</pre></v></r><r><k>7</k><v><pre>30.0751</pre></v></r><r><k>8</k><v><pre>30.9535</pre></v></r><r><k>9</k><v><pre>30.1857</pre></v></r><r><k>10</k><v><pre>31.5797</pre></v></r><r><k>11</k><v><pre>32.5776</pre></v></r><r><k>12</k><v><pre>33.4774</pre></v></r><r><k>13</k><v><pre>39.0216</pre></v></r><r><k>14</k><v><pre>41.3864</pre></v></r><r><k>15</k><v><pre>41.5966</pre></v></r><r><k>16</k><v><pre>44.6573</pre></v></r><r><k>17</k><v><pre>46.9518</pre></v></r><r><k>18</k><v><pre>48.7288</pre></v></r><r><k>19</k><v><pre>51.4884</pre></v></r><r><k>20</k><v><pre>50.027</pre></v></r><r><k>21</k><v><pre>60.6409</pre></v></r><r><k>22</k><v><pre>63.3603</pre></v></r><r><k>23</k><v><pre>66.3553</pre></v></r><r><k>24</k><v><pre>68.198</pre></v></r><r><k>25</k><v><pre>68.1232</pre></v></r><r><k>26</k><v><pre>69.7793</pre></v></r><r><k>27</k><v><pre>72.5977</pre></v></r></jlarray></jltree></div></pluto-output><pluto-input><button class="delete_cell" title="Delete cell"><span></span></button><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 52.3333px; left: 531.25px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1px; height: 1em; outline: currentcolor none medium;" autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" wrap="off"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="true"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 50px; min-height: 23px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div style="position: relative; outline: currentcolor none medium;" role="presentation"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 501.25px; top: 47.5px; height: 15.8333px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-variable">data_1</span> <span class="cm-operator">=</span> [<span class="cm-number">17.5534</span>, <span class="cm-number">21.8601</span>, <span class="cm-number">23.8866</span>, <span class="cm-number">26.9293</span>, <span class="cm-number">26.8885</span>, <span class="cm-number">28.8314</span>, <span class="cm-number">30.0751</span>, <span class="cm-number">30.9535</span>, <span class="cm-tab" role="presentation" cm-text="	">  </span><span class="cm-number">30.1857</span>, <span class="cm-number">31.5797</span>, <span class="cm-number">32.577569</span>, <span class="cm-number">33.477398</span>, <span class="cm-number">39.021581</span>, <span class="cm-number">41.386432</span>, <span class="cm-number">41.596552</span>, <span class="cm-tab" role="presentation" cm-text="	">   </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span> <span class="cm-number">44.657324</span>, <span class="cm-number">46.951775</span>, <span class="cm-number">48.728837</span>,<span class="cm-number">51.488427</span>,<span class="cm-number">50.026967</span>, <span class="cm-number">60.640913</span>,<span class="cm-number">63.3603103378</span>, <span class="cm-number">66.355274</span>, <span class="cm-number">68.197955</span>, <span class="cm-number">68.1232376693</span>, <span class="cm-number">69.7793454797</span>, <span class="cm-number">72.597700806</span>]</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 71px;"></div><div class="CodeMirror-gutters" style="height: 121px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pluto-input><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">652&nbsp;ns</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="code_folded " id="bd0beaca-61ab-11eb-12de-554a102bae37"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="rich_output " mime="text/html"><assignee></assignee><div><div class="markdown"><p>We first instantiate the model class (or struct) corresponding to Holt's Linear Method, with <code>HLT()</code>. If no arguments are passed, all initial model parameters are initialized at <span class="tex"><mjx-container class="MathJax CtxtMenu_Attached_0" jax="SVG" role="presentation" style="position: relative;" tabindex="0" ctxtmenu_counter="2"><svg style="vertical-align: -0.05ex;" xmlns="http://www.w3.org/2000/svg" width="1.131ex" height="1.557ex" role="img" focusable="false" viewBox="0 -666 500 688" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mn"><use xlink:href="#MJX-TEX-N-30"></use></g></g></g></svg><mjx-assistive-mml role="presentation" unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>0</mn></math></mjx-assistive-mml></mjx-container></span>.</p>
+<p>The <code>fit()</code> method is applied to the instantiated model and the data to find the optimal values of the model parameters. With these, we then proceed to make our prediction with the <code>forecast()</code>function, specifying how many steps into the future we want the prediction to be made.</p>
+</div></div></pluto-output><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">9.8&nbsp;μs</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="" id="06d4cba0-61a6-11eb-1dea-2dcb6fafca3b"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="" mime="application/vnd.pluto.tree+object"><assignee></assignee><div><jltree class="collapsed">Float64<jlarray class="Array"><r><k>1</k><v><pre>74.2504</pre></v></r><r><k>2</k><v><pre>76.1547</pre></v></r><r><k>3</k><v><pre>78.0589</pre></v></r><r><k>4</k><v><pre>79.9632</pre></v></r><r><k>5</k><v><pre>81.8674</pre></v></r></jlarray></jltree></div></pluto-output><pluto-input><button class="delete_cell" title="Delete cell"><span></span></button><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4.83331px; left: 72.25px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1px; height: 1em; outline: currentcolor none medium;" autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" wrap="off"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="true"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 50px; min-height: 23px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div style="position: relative; outline: currentcolor none medium;" role="presentation"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 42.25px; top: 0px; height: 15.8333px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">begin</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable">model_1</span> <span class="cm-operator">=</span> <span class="cm-builtin">HLT</span>()</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable">model_1</span> <span class="cm-operator">=</span> <span class="cm-builtin">fit</span>(<span class="cm-variable">model_1</span>, <span class="cm-variable">data_1</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable">predicted_1</span> <span class="cm-operator">=</span> <span class="cm-builtin">forecast</span>(<span class="cm-variable">model_1</span>, <span class="cm-variable">data_1</span>, <span class="cm-number">5</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">end</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 87px;"></div><div class="CodeMirror-gutters" style="height: 137px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pluto-input><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">1.3&nbsp;ms</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="" id="4ada8b1e-61a6-11eb-0760-458e2ae3dadf"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="rich_output " mime="text/html"><assignee></assignee><div><!--?xml version="1.0" encoding="utf-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 2400 1600">
+<defs>
+  <clipPath id="clip9000">
+    <rect x="0" y="0" width="2400" height="1600"></rect>
+  </clipPath>
+</defs>
+<path clip-path="url(#clip9000)" d="
+M0 1600 L2400 1600 L2400 0 L0 0  Z
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clipPath id="clip9001">
+    <rect x="480" y="0" width="1681" height="1600"></rect>
+  </clipPath>
+</defs>
+<path clip-path="url(#clip9000)" d="
+M202.373 1425.62 L2352.76 1425.62 L2352.76 121.675 L202.373 121.675  Z
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clipPath id="clip9002">
+    <rect x="202" y="121" width="2151" height="1305"></rect>
+  </clipPath>
+</defs>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  524.996,1425.62 524.996,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  852.2,1425.62 852.2,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1179.4,1425.62 1179.4,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1506.61,1425.62 1506.61,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1833.81,1425.62 1833.81,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2161.01,1425.62 2161.01,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,1341.92 2352.76,1341.92 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,1150.65 2352.76,1150.65 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,959.378 2352.76,959.378 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,768.108 2352.76,768.108 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,576.838 2352.76,576.838 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,385.568 2352.76,385.568 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,194.298 2352.76,194.298 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,1425.62 2352.76,1425.62 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,1425.62 202.373,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  524.996,1425.62 524.996,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  852.2,1425.62 852.2,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1179.4,1425.62 1179.4,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1506.61,1425.62 1506.61,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1833.81,1425.62 1833.81,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2161.01,1425.62 2161.01,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,1341.92 228.178,1341.92 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,1150.65 228.178,1150.65 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,959.378 228.178,959.378 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,768.108 228.178,768.108 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,576.838 228.178,576.838 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,385.568 228.178,385.568 
+  "></polyline>
+<polyline clip-path="url(#clip9000)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,194.298 228.178,194.298 
+  "></polyline>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 524.996, 1479.62)" x="524.996" y="1479.62">5</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 852.2, 1479.62)" x="852.2" y="1479.62">10</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1179.4, 1479.62)" x="1179.4" y="1479.62">15</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1506.61, 1479.62)" x="1506.61" y="1479.62">20</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1833.81, 1479.62)" x="1833.81" y="1479.62">25</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 2161.01, 1479.62)" x="2161.01" y="1479.62">30</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 1359.42)" x="178.373" y="1359.42">20</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 1168.15)" x="178.373" y="1168.15">30</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 976.878)" x="178.373" y="976.878">40</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 785.608)" x="178.373" y="785.608">50</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 594.338)" x="178.373" y="594.338">60</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 403.068)" x="178.373" y="403.068">70</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 211.798)" x="178.373" y="211.798">80</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:84px; text-anchor:middle;" transform="rotate(0, 1277.56, 73.2)" x="1277.56" y="73.2">Holt's Linear Trend method forecast</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(0, 1277.56, 1559.48)" x="1277.56" y="1559.48">Time (days)</text>
+</g>
+<g clip-path="url(#clip9000)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(-90, 89.2861, 773.647)" x="89.2861" y="773.647">Some quantity (ua)</text>
+</g>
+<polyline clip-path="url(#clip9002)" style="stroke:#009af9; stroke-width:12; stroke-opacity:1; fill:none" points="
+  263.233,1388.71 328.674,1306.34 394.114,1267.58 459.555,1209.38 524.996,1210.16 590.437,1173 655.877,1149.21 721.318,1132.41 786.759,1147.1 852.2,1120.43 
+  917.64,1101.35 983.081,1084.14 1048.52,978.092 1113.96,932.86 1179.4,928.841 1244.84,870.298 1310.28,826.412 1375.73,792.422 1441.17,739.639 1506.61,767.592 
+  1572.05,564.579 1637.49,512.565 1702.93,455.281 1768.37,420.036 1833.81,421.465 1899.25,389.788 1964.69,335.882 2030.13,304.27 2095.57,267.847 2161.01,231.424 
+  2226.46,195.002 2291.9,158.579 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#009af9; stroke-width:12; stroke-opacity:1; fill:none" points="
+  2251.69,160.359 2291.9,158.579 2269.19,191.815 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#009af9; stroke-width:12; stroke-opacity:1; fill:none" points="
+  2291.9,158.579 2226.46,195.002 
+  "></polyline>
+<polyline clip-path="url(#clip9002)" style="stroke:#e26f46; stroke-width:8; stroke-opacity:0.7; fill:none" points="
+  1964.69,2729.56 1964.69,-1182.27 
+  "></polyline>
+</svg>
+</div></pluto-output><pluto-input><button class="delete_cell" title="Delete cell"><span></span></button><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 20.6667px; left: 646px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1px; height: 1em; outline: currentcolor none medium;" autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" wrap="off"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="true"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 50px; min-height: 23px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div style="position: relative; outline: currentcolor none medium;" role="presentation"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>6</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 616px; top: 15.8333px; height: 15.8333px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">begin</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">plot</span>(<span class="cm-builtin">vcat</span>(<span class="cm-variable">data_1</span>, <span class="cm-variable">predicted_1</span>), <span class="cm-variable">legend</span><span class="cm-operator">=</span><span class="cm-builtin">false</span>, <span class="cm-variable">lw</span><span class="cm-operator">=</span><span class="cm-number">3</span>, <span class="cm-variable">arrow</span><span class="cm-operator">=</span><span class="cm-builtin">true</span>, <span class="cm-variable">title</span><span class="cm-operator">=</span><span class="cm-string">"Holt's Linear Trend method forecast"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">vline!</span>([<span class="cm-builtin">length</span>(<span class="cm-variable">data_1</span>)], <span class="cm-variable">lw</span><span class="cm-operator">=</span><span class="cm-number">2</span>, <span class="cm-variable">alpha</span><span class="cm-operator">=</span><span class="cm-number">0.7</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">xlabel!</span>(<span class="cm-string">"Time (days)"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">ylabel!</span>(<span class="cm-string">"Some quantity (ua)"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">end</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 119px;"></div><div class="CodeMirror-gutters" style="height: 169px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pluto-input><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">15.5&nbsp;ms</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="code_folded " id="56d06ac4-61b0-11eb-0f0b-e5dbba35822b"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="rich_output " mime="text/html"><assignee></assignee><div><div class="markdown"><hr>
+<h4>Simple Exponential Smoothing (SES) method</h4>
+<p>Following the same schema, we now load some other data. In this example, wi will use <strong>Simple Exponential Smoothing method</strong>.</p>
+</div></div></pluto-output><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">18.5&nbsp;μs</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="" id="a5a100a0-61a6-11eb-29c1-b1de684332db"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="" mime="application/vnd.pluto.tree+object"><assignee>data_2</assignee><div><jltree class="collapsed">Float64<jlarray class="Array"><r><k>1</k><v><pre>445.364</pre></v></r><r><k>2</k><v><pre>453.195</pre></v></r><r><k>3</k><v><pre>454.41</pre></v></r><r><k>4</k><v><pre>422.379</pre></v></r><r><k>5</k><v><pre>456.037</pre></v></r><r><k>6</k><v><pre>440.387</pre></v></r><r><k>7</k><v><pre>425.194</pre></v></r><r><k>8</k><v><pre>486.205</pre></v></r><r><k>9</k><v><pre>500.429</pre></v></r><r><k>10</k><v><pre>521.276</pre></v></r><r><k>11</k><v><pre>508.948</pre></v></r><r><k>12</k><v><pre>488.889</pre></v></r><r><k>13</k><v><pre>509.871</pre></v></r><r><k>14</k><v><pre>456.723</pre></v></r><r><k>15</k><v><pre>473.817</pre></v></r><r><k>16</k><v><pre>525.951</pre></v></r><r><k>17</k><v><pre>549.834</pre></v></r><r><k>18</k><v><pre>542.34</pre></v></r></jlarray></jltree></div></pluto-output><pluto-input><button class="delete_cell" title="Delete cell"><span></span></button><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 52.3333px; left: 370.6px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1px; height: 1em; outline: currentcolor none medium;" autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" wrap="off"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="true"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 50px; min-height: 23px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div style="position: relative; outline: currentcolor none medium;" role="presentation"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 340.6px; top: 47.5px; height: 15.8333px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-variable">data_2</span> <span class="cm-operator">=</span> [<span class="cm-number">445.364098092</span>, <span class="cm-number">453.195010427</span>, <span class="cm-number">454.409641012</span>, <span class="cm-number">422.378905779</span>, <span class="cm-number">456.037121728</span>, <span class="cm-number">440.386604674</span>, <span class="cm-number">425.194372519</span>, <span class="cm-number">486.20517351</span>, <span class="cm-number">500.429086073</span>, <span class="cm-number">521.27590917</span>, <span class="cm-number">508.947617045</span>, <span class="cm-number">488.888857729</span>, <span class="cm-number">509.870574978</span>, <span class="cm-number">456.722912348</span>, <span class="cm-number">473.816602915</span>, </span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-number">525.950870565</span>, <span class="cm-number">549.833807597</span>, <span class="cm-number">542.340469826</span>]</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 71px;"></div><div class="CodeMirror-gutters" style="height: 121px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pluto-input><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">1.7&nbsp;μs</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="code_folded " id="7dc66732-61b0-11eb-3082-cf2c7a7af91b"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="rich_output " mime="text/html"><assignee></assignee><div><div class="markdown"><p>The SES model makes flat forecasts. This means that all the forecasted values are equal to the first forecasted value. These forecasts will only be suitable if the time series has no trend or seasonal component.</p>
+</div></div></pluto-output><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">10.3&nbsp;μs</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="" id="c4e51172-61a6-11eb-1bb9-3bd8a3489eb5"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="" mime="application/vnd.pluto.tree+object"><assignee></assignee><div><jltree class="collapsed">Any<jlarray class="Array"><r><k>1</k><v><pre>542.68</pre></v></r><r><k>2</k><v><pre>542.68</pre></v></r><r><k>3</k><v><pre>542.68</pre></v></r><r><k>4</k><v><pre>542.68</pre></v></r><r><k>5</k><v><pre>542.68</pre></v></r><r><k>6</k><v><pre>542.68</pre></v></r><r><k>7</k><v><pre>542.68</pre></v></r><r><k>8</k><v><pre>542.68</pre></v></r><r><k>9</k><v><pre>542.68</pre></v></r><r><k>10</k><v><pre>542.68</pre></v></r></jlarray></jltree></div></pluto-output><pluto-input><button class="delete_cell" title="Delete cell"><span></span></button><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4.83334px; left: 34px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1px; height: 1em; outline: currentcolor none medium;" autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" wrap="off"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="true"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 50px; min-height: 23px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div style="position: relative; outline: currentcolor none medium;" role="presentation"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 15.8333px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">begin</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable">model_2</span> <span class="cm-operator">=</span> <span class="cm-builtin">SES</span>()</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable">model_2</span> <span class="cm-operator">=</span> <span class="cm-builtin">fit</span>(<span class="cm-variable">model_2</span>, <span class="cm-variable">data_2</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable">predicted_2</span> <span class="cm-operator">=</span> <span class="cm-builtin">forecast</span>(<span class="cm-variable">model_2</span>, <span class="cm-variable">data_2</span>, <span class="cm-number">10</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">end</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 87px;"></div><div class="CodeMirror-gutters" style="height: 137px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pluto-input><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">783&nbsp;ms</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="" id="d4ebc5de-61a6-11eb-109f-8dedb6b87aca"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="rich_output " mime="text/html"><assignee></assignee><div><!--?xml version="1.0" encoding="utf-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 2400 1600">
+<defs>
+  <clipPath id="clip8600">
+    <rect x="0" y="0" width="2400" height="1600"></rect>
+  </clipPath>
+</defs>
+<path clip-path="url(#clip8600)" d="
+M0 1600 L2400 1600 L2400 0 L0 0  Z
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clipPath id="clip8601">
+    <rect x="480" y="0" width="1681" height="1600"></rect>
+  </clipPath>
+</defs>
+<path clip-path="url(#clip8600)" d="
+M229.135 1425.62 L2352.76 1425.62 L2352.76 121.675 L229.135 121.675  Z
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clipPath id="clip8602">
+    <rect x="229" y="121" width="2125" height="1305"></rect>
+  </clipPath>
+</defs>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  586.04,1425.62 586.04,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  957.043,1425.62 957.043,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1328.05,1425.62 1328.05,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1699.05,1425.62 1699.05,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2070.05,1425.62 2070.05,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  229.135,1411.67 2352.76,1411.67 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  229.135,1218.64 2352.76,1218.64 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  229.135,1025.61 2352.76,1025.61 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  229.135,832.583 2352.76,832.583 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  229.135,639.552 2352.76,639.552 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  229.135,446.521 2352.76,446.521 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  229.135,253.491 2352.76,253.491 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  229.135,1425.62 2352.76,1425.62 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  229.135,1425.62 229.135,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  586.04,1425.62 586.04,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  957.043,1425.62 957.043,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1328.05,1425.62 1328.05,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1699.05,1425.62 1699.05,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2070.05,1425.62 2070.05,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  229.135,1411.67 254.619,1411.67 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  229.135,1218.64 254.619,1218.64 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  229.135,1025.61 254.619,1025.61 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  229.135,832.583 254.619,832.583 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  229.135,639.552 254.619,639.552 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  229.135,446.521 254.619,446.521 
+  "></polyline>
+<polyline clip-path="url(#clip8600)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  229.135,253.491 254.619,253.491 
+  "></polyline>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 586.04, 1479.62)" x="586.04" y="1479.62">5</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 957.043, 1479.62)" x="957.043" y="1479.62">10</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1328.05, 1479.62)" x="1328.05" y="1479.62">15</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1699.05, 1479.62)" x="1699.05" y="1479.62">20</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 2070.05, 1479.62)" x="2070.05" y="1479.62">25</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 205.135, 1429.17)" x="205.135" y="1429.17">420</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 205.135, 1236.14)" x="205.135" y="1236.14">440</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 205.135, 1043.11)" x="205.135" y="1043.11">460</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 205.135, 850.083)" x="205.135" y="850.083">480</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 205.135, 657.052)" x="205.135" y="657.052">500</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 205.135, 464.021)" x="205.135" y="464.021">520</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 205.135, 270.991)" x="205.135" y="270.991">540</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:84px; text-anchor:middle;" transform="rotate(0, 1290.95, 73.2)" x="1290.95" y="73.2">Simple Exponential Smoothing method forecast</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(0, 1290.95, 1559.48)" x="1290.95" y="1559.48">Time (days)</text>
+</g>
+<g clip-path="url(#clip8600)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(-90, 89.2861, 773.647)" x="89.2861" y="773.647">Some quantity (ua)</text>
+</g>
+<polyline clip-path="url(#clip8602)" style="stroke:#009af9; stroke-width:12; stroke-opacity:1; fill:none" points="
+  289.238,1166.87 363.438,1091.29 437.639,1079.57 511.839,1388.71 586.04,1063.86 660.241,1214.91 734.441,1361.54 808.642,772.693 882.842,635.411 957.043,434.207 
+  1031.24,553.194 1105.44,746.791 1179.64,544.286 1253.85,1057.24 1328.05,892.262 1402.25,389.086 1476.45,158.579 1550.65,230.901 1624.85,227.621 1699.05,227.621 
+  1773.25,227.621 1847.45,227.621 1921.65,227.621 1995.85,227.621 2070.05,227.621 2144.25,227.621 2218.45,227.621 2292.65,227.621 
+  "></polyline>
+<polyline clip-path="url(#clip8602)" style="stroke:#e26f46; stroke-width:8; stroke-opacity:0.7; fill:none" points="
+  1550.65,2729.56 1550.65,-1182.27 
+  "></polyline>
+</svg>
+</div></pluto-output><pluto-input><button class="delete_cell" title="Delete cell"><span></span></button><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4.83331px; left: 34px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1px; height: 1em; outline: currentcolor none medium;" autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" wrap="off"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="true"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 50px; min-height: 23px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div style="position: relative; outline: currentcolor none medium;" role="presentation"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>6</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 15.8333px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">begin</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">plot</span>(<span class="cm-builtin">vcat</span>(<span class="cm-variable">data_2</span>, <span class="cm-variable">predicted_2</span>), <span class="cm-variable">label</span><span class="cm-operator">=</span><span class="cm-builtin">false</span>, <span class="cm-variable">lw</span><span class="cm-operator">=</span><span class="cm-number">3</span>, <span class="cm-variable">title</span><span class="cm-operator">=</span><span class="cm-string">"Simple Exponential Smoothing method forecast"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">vline!</span>([<span class="cm-builtin">length</span>(<span class="cm-variable">data_2</span>)], <span class="cm-variable">label</span><span class="cm-operator">=</span><span class="cm-builtin">false</span>, <span class="cm-variable">lw</span><span class="cm-operator">=</span><span class="cm-number">2</span>, <span class="cm-variable">alpha</span><span class="cm-operator">=</span><span class="cm-number">0.7</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">xlabel!</span>(<span class="cm-string">"Time (days)"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">ylabel!</span>(<span class="cm-string">"Some quantity (ua)"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">end</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 119px;"></div><div class="CodeMirror-gutters" style="height: 169px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pluto-input><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">102&nbsp;ms</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="code_folded " id="45de8cd6-61b1-11eb-2b05-bb35b78757ff"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="rich_output " mime="text/html"><assignee></assignee><div><div class="markdown"><hr>
+<h4>Holt-Winters' (HW) seasonal method</h4>
+<p>We follow an analogous methodology to the others examples, for the <strong>Holt-Winters' method</strong>. In this particular case, we will instantiate the <code>HW()</code> model class with some parameters, hence, the <code>fit()</code> method won't be necessary.</p>
+</div></div></pluto-output><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">16.8&nbsp;μs</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="" id="f5f950d4-61a6-11eb-0fc6-e924ca85d1dc"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="" mime="application/vnd.pluto.tree+object"><assignee>data_3</assignee><div><jltree class="collapsed">Float64<jlarray class="Array"><r><k>1</k><v><pre>42.2057</pre></v></r><r><k>2</k><v><pre>24.6492</pre></v></r><r><k>3</k><v><pre>32.6673</pre></v></r><r><k>4</k><v><pre>37.2574</pre></v></r><r><k>5</k><v><pre>45.2425</pre></v></r><r><k>6</k><v><pre>29.3505</pre></v></r><r><k>7</k><v><pre>36.3442</pre></v></r><r><k>8</k><v><pre>41.7821</pre></v></r><r><k>9</k><v><pre>49.2766</pre></v></r><r><k>10</k><v><pre>31.2754</pre></v></r><r><k>11</k><v><pre>37.8506</pre></v></r><r><k>12</k><v><pre>38.837</pre></v></r><r><k>13</k><v><pre>51.2369</pre></v></r><r><k>14</k><v><pre>31.8386</pre></v></r><r><k>15</k><v><pre>41.3234</pre></v></r><r><k>16</k><v><pre>42.799</pre></v></r><r><k>17</k><v><pre>55.7084</pre></v></r><r><k>18</k><v><pre>33.4071</pre></v></r><r><k>19</k><v><pre>42.3166</pre></v></r><r><k>20</k><v><pre>45.1571</pre></v></r><r><jlmore class="">more</jlmore></r><r><k>35</k><v><pre>51.8285</pre></v></r><r><k>36</k><v><pre>57.4919</pre></v></r><r><k>37</k><v><pre>65.2515</pre></v></r><r><k>38</k><v><pre>43.0612</pre></v></r><r><k>39</k><v><pre>54.7608</pre></v></r><r><k>40</k><v><pre>59.8345</pre></v></r><r><k>41</k><v><pre>73.257</pre></v></r><r><k>42</k><v><pre>47.6966</pre></v></r><r><k>43</k><v><pre>61.0978</pre></v></r><r><k>44</k><v><pre>66.0558</pre></v></r></jlarray></jltree></div></pluto-output><pluto-input><button class="delete_cell" title="Delete cell"><span></span></button><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 84px; left: 164.05px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1px; height: 1em; outline: currentcolor none medium;" autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" wrap="off"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="true"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 50px; min-height: 23px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div style="position: relative; outline: currentcolor none medium;" role="presentation"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 134.05px; top: 79.1667px; height: 15.8333px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-variable">data_3</span> <span class="cm-operator">=</span> [<span class="cm-number">42.2056638559382</span>, <span class="cm-number">24.6491713296294</span>, <span class="cm-number">32.6673351386246</span>, <span class="cm-number">37.2573540134764</span>, <span class="cm-number">45.2424602720635</span>, <span class="cm-number">29.3504812742718</span>, <span class="cm-number">36.3442072775119</span>, <span class="cm-number">41.7820813647366</span>, <span class="cm-number">49.2765984345619</span>, <span class="cm-number">31.2754013898459</span>, <span class="cm-number">37.8506254947152</span>, <span class="cm-number">38.83704413019</span>, <span class="cm-number">51.236900336137</span>, <span class="cm-number">31.8385516171558</span>, <span class="cm-number">41.3234212576972</span>, <span class="cm-number">42.7990033724349</span>, <span class="cm-number">55.708358364385</span>, <span class="cm-number">33.4071449171312</span>, <span class="cm-number">42.3166379718116</span>, <span class="cm-number">45.1571225674731</span>, <span class="cm-number">59.5760799633937</span>, <span class="cm-number">34.8373301595328</span>, <span class="cm-number">44.8416807241332</span>, <span class="cm-number">46.971249602779</span>, <span class="cm-number">60.0190309438716</span>, <span class="cm-number">38.3711785132276</span>, <span class="cm-number">46.9758641283558</span>, <span class="cm-number">50.7337964560878</span>, <span class="cm-number">61.6468731860574</span>, <span class="cm-number">39.2995693656296</span>, <span class="cm-number">52.6712090814052</span>, <span class="cm-number">54.3323168946667</span>, <span class="cm-number">66.834358381339</span>, <span class="cm-number">40.8711884667851</span>, <span class="cm-number">51.8285357927739</span>, <span class="cm-number">57.4919099342262</span>, <span class="cm-number">65.2514698518726</span>, <span class="cm-number">43.0612082202828</span>, <span class="cm-number">54.7607571288007</span>, <span class="cm-number">59.8344749355003</span>, <span class="cm-number">73.2570274672009</span>, <span class="cm-number">47.6966237298</span>, <span class="cm-number">61.0977680206996</span>, <span class="cm-number">66.0557612187001</span>]</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 182px;"></div><div class="CodeMirror-gutters" style="height: 232px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pluto-input><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">1.4&nbsp;μs</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="" id="94dd9624-61a7-11eb-314e-63f1553ba664"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="" mime="application/vnd.pluto.tree+object"><assignee></assignee><div><jltree class="collapsed">Any<jlarray class="Array"><r><k>1</k><v><pre>76.0929</pre></v></r><r><k>2</k><v><pre>51.5986</pre></v></r><r><k>3</k><v><pre>63.9619</pre></v></r><r><k>4</k><v><pre>68.3635</pre></v></r><r><k>5</k><v><pre>78.8931</pre></v></r></jlarray></jltree></div></pluto-output><pluto-input><button class="delete_cell" title="Delete cell"><span></span></button><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 36.5px; left: 385.9px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1px; height: 1em; outline: currentcolor none medium;" autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" wrap="off"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="true"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 50px; min-height: 23px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div style="position: relative; outline: currentcolor none medium;" role="presentation"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 355.9px; top: 31.6667px; height: 15.8333px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">begin</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable">model_3</span> <span class="cm-operator">=</span> <span class="cm-builtin">HW</span>(<span class="cm-number">4</span>, <span class="cm-number">0.306</span>, <span class="cm-number">0.0003</span>, <span class="cm-number">0.426</span>, <span class="cm-number">32.26</span>, <span class="cm-number">0.70</span>, [<span class="cm-number">9.7</span>, <span class="cm-operator">-</span><span class="cm-number">9.31</span>, <span class="cm-operator">-</span><span class="cm-number">1.69</span>, <span class="cm-number">1.31</span>])</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable">predicted_3</span> <span class="cm-operator">=</span> <span class="cm-builtin">forecast</span>(<span class="cm-variable">model_3</span>, <span class="cm-variable">data_3</span>, <span class="cm-number">5</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">end</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 71px;"></div><div class="CodeMirror-gutters" style="height: 121px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pluto-input><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">20.4&nbsp;ms</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="" id="1025c720-61a8-11eb-3460-2ddbd4092a61"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="rich_output " mime="text/html"><assignee></assignee><div><!--?xml version="1.0" encoding="utf-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 2400 1600">
+<defs>
+  <clipPath id="clip0200">
+    <rect x="0" y="0" width="2400" height="1600"></rect>
+  </clipPath>
+</defs>
+<path clip-path="url(#clip0200)" d="
+M0 1600 L2400 1600 L2400 0 L0 0  Z
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clipPath id="clip0201">
+    <rect x="480" y="0" width="1681" height="1600"></rect>
+  </clipPath>
+</defs>
+<path clip-path="url(#clip0200)" d="
+M202.373 1425.62 L2352.76 1425.62 L2352.76 121.675 L202.373 121.675  Z
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clipPath id="clip0202">
+    <rect x="202" y="121" width="2151" height="1305"></rect>
+  </clipPath>
+</defs>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  220.969,1425.62 220.969,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  643.607,1425.62 643.607,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1066.25,1425.62 1066.25,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1488.88,1425.62 1488.88,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1911.52,1425.62 1911.52,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2334.16,1425.62 2334.16,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,1267.37 2352.76,1267.37 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,1040.59 2352.76,1040.59 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,813.813 2352.76,813.813 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,587.034 2352.76,587.034 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,360.256 2352.76,360.256 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  202.373,133.478 2352.76,133.478 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,1425.62 2352.76,1425.62 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,1425.62 202.373,121.675 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  220.969,1425.62 220.969,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  643.607,1425.62 643.607,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1066.25,1425.62 1066.25,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1488.88,1425.62 1488.88,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1911.52,1425.62 1911.52,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2334.16,1425.62 2334.16,1409.97 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,1267.37 228.178,1267.37 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,1040.59 228.178,1040.59 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,813.813 228.178,813.813 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,587.034 228.178,587.034 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,360.256 228.178,360.256 
+  "></polyline>
+<polyline clip-path="url(#clip0200)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  202.373,133.478 228.178,133.478 
+  "></polyline>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 220.969, 1479.62)" x="220.969" y="1479.62">0</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 643.607, 1479.62)" x="643.607" y="1479.62">10</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1066.25, 1479.62)" x="1066.25" y="1479.62">20</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1488.88, 1479.62)" x="1488.88" y="1479.62">30</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1911.52, 1479.62)" x="1911.52" y="1479.62">40</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 2334.16, 1479.62)" x="2334.16" y="1479.62">50</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 1284.87)" x="178.373" y="1284.87">30</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 1058.09)" x="178.373" y="1058.09">40</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 831.313)" x="178.373" y="831.313">50</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 604.534)" x="178.373" y="604.534">60</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 377.756)" x="178.373" y="377.756">70</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 178.373, 150.978)" x="178.373" y="150.978">80</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:84px; text-anchor:middle;" transform="rotate(0, 1277.56, 73.2)" x="1277.56" y="73.2">Holt-Winters' seasonality method</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(0, 1277.56, 1559.48)" x="1277.56" y="1559.48">Time (days)</text>
+</g>
+<g clip-path="url(#clip0200)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(-90, 89.2861, 773.647)" x="89.2861" y="773.647">Some quantity (ua)</text>
+</g>
+<polyline clip-path="url(#clip0202)" style="stroke:#009af9; stroke-width:12; stroke-opacity:1; fill:none" points="
+  263.233,990.571 305.497,1388.71 347.76,1206.88 390.024,1102.79 432.288,921.703 474.552,1282.1 516.816,1123.5 559.08,1000.18 601.343,830.218 643.607,1238.45 
+  685.871,1089.33 728.135,1066.96 770.399,785.762 812.662,1225.67 854.926,1010.58 897.19,977.116 939.454,684.36 981.718,1190.1 1023.98,988.055 1066.25,923.639 
+  1108.51,596.648 1150.77,1157.67 1193.04,930.792 1235.3,882.498 1277.56,586.603 1319.83,1077.53 1362.09,882.394 1404.36,797.172 1446.62,549.687 1488.88,1056.48 
+  1531.15,753.235 1573.41,715.565 1615.67,432.046 1657.94,1020.83 1700.2,772.345 1742.47,643.912 1784.73,467.942 1826.99,971.169 1869.26,705.849 1911.52,590.788 
+  1953.79,286.394 1996.05,866.048 2038.31,562.139 2080.58,449.703 2122.84,222.081 2165.1,777.559 2207.37,497.187 2249.63,397.369 2291.9,158.579 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#009af9; stroke-width:12; stroke-opacity:1; fill:none" points="
+  2267.9,190.891 2291.9,158.579 2303.35,197.165 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#009af9; stroke-width:12; stroke-opacity:1; fill:none" points="
+  2291.9,158.579 2249.63,397.369 
+  "></polyline>
+<polyline clip-path="url(#clip0202)" style="stroke:#e26f46; stroke-width:8; stroke-opacity:0.7; fill:none" points="
+  2080.58,2729.56 2080.58,-1182.27 
+  "></polyline>
+</svg>
+</div></pluto-output><pluto-input><button class="delete_cell" title="Delete cell"><span></span></button><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 36.5px; left: 271.15px;"><textarea style="position: absolute; bottom: -1em; padding: 0px; width: 1px; height: 1em; outline: currentcolor none medium;" autocorrect="off" autocapitalize="none" spellcheck="false" tabindex="0" wrap="off"></textarea></div><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="true"><div class="CodeMirror-sizer" style="margin-left: 30px; margin-bottom: 0px; border-right-width: 50px; min-height: 23px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div style="position: relative; outline: currentcolor none medium;" role="presentation"><div class="CodeMirror-measure"><pre class="CodeMirror-line-like"><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 241.15px; top: 31.6667px; height: 15.8333px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">begin</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">plot</span>(<span class="cm-builtin">vcat</span>(<span class="cm-variable">data_3</span>, <span class="cm-variable">predicted_3</span>), <span class="cm-variable">label</span><span class="cm-operator">=</span><span class="cm-builtin">false</span>, <span class="cm-variable">lw</span><span class="cm-operator">=</span><span class="cm-number">3</span>, <span class="cm-variable">title</span><span class="cm-operator">=</span><span class="cm-string">"Holt-Winters' seasonality method"</span>, <span class="cm-variable">arrow</span><span class="cm-operator">=</span><span class="cm-builtin">true</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">vline!</span>([<span class="cm-builtin">length</span>(<span class="cm-variable">data_3</span>)], <span class="cm-variable">label</span><span class="cm-operator">=</span><span class="cm-builtin">false</span>, <span class="cm-variable">lw</span><span class="cm-operator">=</span><span class="cm-number">2</span>, <span class="cm-variable">alpha</span><span class="cm-operator">=</span><span class="cm-number">0.7</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">xlabel!</span>(<span class="cm-string">"Time (days)"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-builtin">ylabel!</span>(<span class="cm-string">"Some quantity (ua)"</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -30px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation"><span class="cm-keyword">end</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 50px; width: 1px; border-bottom: 0px solid transparent; top: 119px;"></div><div class="CodeMirror-gutters" style="height: 169px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 29px;"></div></div></div></div></pluto-input><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">209&nbsp;ms</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="code_folded " id="2438daea-61a8-11eb-0852-25ac9ab6d0e4"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="rich_output " mime="text/html"><assignee></assignee><div><div class="markdown"><hr>
+<h5>Summing up:</h5>
+<pre><code class="language-julia cm-s-default"><span class="cm-variable">model</span> <span class="cm-operator">=</span> <span class="cm-builtin">XXX</span>() <span class="cm-comment"># This can be any forecasting model</span>
+<span class="cm-variable">model</span> <span class="cm-operator">=</span> <span class="cm-builtin">fit</span>(<span class="cm-variable">model</span>, <span class="cm-variable">data</span>)
+<span class="cm-variable">predicted</span> <span class="cm-operator">=</span> <span class="cm-builtin">forecast</span>(<span class="cm-variable">model</span>, <span class="cm-variable">data</span>, <span class="cm-number">5</span>)</code></pre>
+</div></div></pluto-output><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">25.5&nbsp;μs</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell><pluto-cell class="code_folded " id="05ef4782-61ac-11eb-3772-efd50f0108e2"><pluto-shoulder draggable="true" title="Drag to move cell"><button class="foldcode" title="Show/hide code"><span></span></button></pluto-shoulder><pluto-trafficlight></pluto-trafficlight><button class="add_cell before" title="Add cell"><span></span></button><pluto-output class="rich_output " mime="text/html"><assignee></assignee><div><div class="markdown"><h3>References</h3>
+<ul>
+<li><p><a href="https://otexts.com/fpp2/ses.html">Forecasting: Principles and Practice</a></p>
+</li>
+</ul>
+</div></div></pluto-output><pluto-runarea><button class="runcell" title="Run"><span></span></button><span class="runtime">5.5&nbsp;ms</span></pluto-runarea><button class="add_cell after" title="Add cell"><span></span></button></pluto-cell></pluto-notebook><dropruler></dropruler></main>
+                <svg style="display: none;" id="MJX-SVG-global-cache"><defs><path id="MJX-TEX-N-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></defs></svg>
+            </body>
+            </html>
+        
